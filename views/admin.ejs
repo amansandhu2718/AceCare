@@ -1,0 +1,49 @@
+<%- include("main/header"); -%>
+<div  class="main" style="padding-top:7vh ;"></div>
+<div class="container-fluid">
+    <h1 class="display-1" style="display: grid; place-items: center;">ADMIN PANEL</h1>
+</div>
+
+<div class="postouter container" style="display: flex;justify-content: center; align-items: center;flex-direction: column;">
+    <div class="col col-12 col-md-8 col-lg-6" style="padding: 0px;">
+    <% try{
+      if(post) {var i; 
+        for(i=0;i<=post.length-1;i++){
+         %> <div class="postcard">
+         <div class="postcardtop">
+          <div class="postcardtopinner">
+            <img src="assets/pro.jpg" alt="" class="postprofilepic">
+            <p class="my-auto " style="font-weight: bold; padding-left: 10px;"><%=post[i].uploader %></p>
+          </div>
+          <p class="my-auto"><%=post[i].location %></p>
+         </div>
+         <p style="padding-top: 10px;"><%=post[i].tweet %></p>
+        
+          <div  class="col col-12 col-md-12 col-lg-12 mx-auto bg-dark postcardimg" >
+            <img  src="uploads/<%=post[i].postimg%>" alt="assets/1.png" style="width: 100%;">
+          </div>
+         
+         <div class="postcardbuttonouter">
+           
+         
+         <form class="w-100" action="/admin" method="post" style="display: grid; place-items: center;">
+            <input name="id" value="<%=post[i]._id%>" style="visibility: hidden;">
+            <button value="1" type="submit" name="true">Verify Post</button>
+         </form>
+         </div>
+         <div class="postcardbuttonouter">
+          <p><%=post[i].readycounter %> others already helping</p>
+          <p><%=post[i].reportcounter %> others also reported</p>
+         </div>
+        </div><br>
+         <%
+        
+        
+       }
+     }}catch(e){
+      console.log(e);
+        } %> 
+  </div>
+</div>
+
+<%- include("main/footer"); -%>

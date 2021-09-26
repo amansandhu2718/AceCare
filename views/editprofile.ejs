@@ -1,0 +1,137 @@
+<%- include("main/header"); -%>
+<script src="javascript/editprofile.js"></script>
+
+<div style="padding-top: 12vh">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12 col-md-12 col-lg-4 my-auto">
+        <div
+          style="
+            background-color: black;
+            padding: 20px;
+            color: white;
+            border: 5px solid #49527a;
+          "
+        >
+          <form action="/edit_profile" method="post">
+            <h3>Edit Profile</h3>
+            <div style="display: flex; flex-wrap: wrap">
+              <label>Name</label>
+              <input type="text" name="name" style="width: 100%" />
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+              <label>Phone Number</label>
+              <input type="text" name="number" style="width: 100%" />
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+              <label>Address</label>
+              <input type="text" name="address" style="width: 100%" />
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+              <label>State</label>
+              <input type="text" name="state" style="width: 100%" />
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+              <button class="mt-3 rbbtn p-2" type="submit" name="editprofile">
+                Update Profile
+              </button>
+            </div>
+          </form>
+        </div>
+        <br />
+        <div
+          style="
+            background-color: black;
+            border: 5px solid #49527a;
+            padding: 20px;
+            color: white;
+          "
+        >
+          <form
+            action="/change_pass"
+            method="post"
+            id="change_pass"
+            onsubmit="change_pass_fun()"
+          >
+            <h3>Change Password</h3>
+            <div>
+              <div style="display: flex; flex-wrap: wrap">
+                <label>Old Password</label>
+                <input type="text" name="old" style="width: 100%" />
+              </div>
+              <div style="display: flex; flex-wrap: wrap">
+                <label>New Password</label>
+                <input type="text" name="new" style="width: 100%" />
+              </div>
+              <div style="display: flex; flex-wrap: wrap">
+                <label>Confirm Pasword</label>
+                <input type="text" name="conf" style="width: 100%" />
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap">
+                <button class="mt-3 rbbtn p-2" type="submit" name="editprofile">
+                  Update Profile
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="col col-12 col-md-12 col-lg-8 mt-3"
+        style="display: grid; place-items: center; padding: 10px; color: white"
+      >
+        <div
+          style="
+            background-color: black;
+            border: 5px solid #49527a;
+            padding: 20px;
+            color: white;
+            width: 100%;
+            margin-top: -15px;
+            overflow-x: hidden;
+          "
+        >
+          <div>
+            <form
+              style="width: 100%"
+              action="/change_pic"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div style="display: flex; flex-wrap: wrap">
+                <h3>Upload Profile Image</h3>
+                <input
+                  id="file"
+                  type="file"
+                  name="pic_prof"
+                  style="width: 100%"
+                  onchange="previewImage();"
+                />
+              </div>
+              <br />
+              <div class="imageresizer">
+                <img class="anim2" id="preview" src="assets/profile.svg" />
+              </div>
+              <div style="display: flex; flex-wrap: wrap">
+                <button class="mt-3 rbbtn p-2" type="submit" name="editprofile">
+                  Update Profile Image
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+	var change_pass = Document.getElementById("change_pass");
+	function change_pass_fun() {
+		change_pass.preventDefault();
+	}
+
+</script> -->
+
+<%- include("main/footer"); -%>

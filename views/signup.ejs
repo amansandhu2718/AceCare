@@ -1,0 +1,106 @@
+<%- include("main/header"); -%>
+
+<div
+  class="main"
+  style="
+    padding-top: 7vh;
+    padding-top: 7vh;
+    background-image: url('../assets/bgggg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  "
+>
+  <!---->
+
+  <!---->
+
+  <div
+    class="container-fluid"
+    style="
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <main class="px-3 pt-3 pb-3" style="background-color: #50598865">
+      <form class="p-3" method="post" action="">
+        <h1 class="display-5 fw-normal">Welcome to AceCare</h1>
+        <br />
+        <div class="mb-3">
+          <label for="exampleInputFullName" class="form-label">Full Name</label>
+          <input
+            name="username"
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Email address</label
+          >
+          <input
+            name="email"
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputlocation" class="form-label">Location</label>
+          <input
+            name="state"
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input
+            name="password"
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >ConfirmPassword</label
+          >
+          <input
+            name="cpassword"
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #7986cb; color: #fff"
+        >
+          Submit
+        </button>
+        <label class="mx-2 my-2"
+          >Already Registered?
+          <a
+            href="/login"
+            style="
+              color: #7986cb !important;
+              text-shadow: 0px 0px 30px #7986cb;
+              font-weight: 400;
+            "
+            >Log In</a
+          ></label
+        >
+      </form>
+    </main>
+  </div>
+  <!---->
+</div>
+<!-- -->

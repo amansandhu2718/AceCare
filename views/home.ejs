@@ -1,0 +1,587 @@
+<%- include("main/header"); -%>
+
+     <div  class="main" style="padding-top:7vh ;">
+
+        
+        <div class="container " style="height: 93vh; padding: 0px !important; padding-bottom: 14vh !important;">
+
+            <div class="desktab" >
+                <div class="buttoncontainer">
+                    <button style="background-color: #7986CB;" onclick='showpanel(0,"black")'><i style="margin-right: 15px;" class="fas fa-lg fa-home"></i>Home</button>
+                    <button style="background-color: #7986CB;" onclick="showpanel(1,'black')"><i style="margin-right: 15px;" class="fas fa-lg fa-gifts"></i>Resources</button>
+                    <button style="background-color: #7986CB;" onclick="showpanel(2,'black')"><i style="margin-right: 15px;" class="fas fa-lg fa-arrow-circle-up"></i>Cowin Slot</button>
+                    <button style="background-color: #7986CB;" onclick="showpanel(3,'black')"><i style="margin-right: 15px;" class="fas fa-user-alt"></i>Profile</button>
+                    
+            
+            
+                </div>
+            
+            </div>
+
+
+
+
+
+
+
+
+
+<!---->
+<tab class="tabcontainer">
+    <div class="dtabpanel  " >
+     <div id="welcome" style="width: 100%; display: grid; place-items: center;">
+     <hr style="color: white;background-color: white;">
+      <h3 style="color: white;">Welcome <span class="btn" style="background-color: #7986cb;color: #fff;"><%=session%></span></h3>
+    </div>
+     <div class="postouter container" style="display: flex;justify-content: center; align-items: center;flex-direction: column;">
+      <div class="col col-12 col-md-8 col-lg-6" style="padding: 0px;">
+      <% try{
+        if(post) {var i; 
+          for(i=0;i<=post.length-1;i++){
+           %> <div class="postcard">
+           <div class="postcardtop">
+            <div class="postcardtopinner">
+              <img src="assets/pro.jpg" alt="" class="postprofilepic">
+              <p class="my-auto " style="font-weight: bold; padding-left: 10px;"><%=post[i].uploader %></p>
+            </div>
+            <p class="my-auto"><%=post[i].location %></p>
+           </div>
+           <p style="padding-top: 10px;"><%=post[i].tweet %></p>
+          
+            <div  class="col col-12 col-md-12 col-lg-12 mx-auto bg-dark postcardimg" >
+              <img  src="uploads/<%=post[i].postimg%>" alt="assets/1.png" style="width: 100%;">
+            </div>
+           
+           <div class="postcardbuttonouter">
+            <form action="/iamin" method="post" enctype="application/x-www-form-urlencoded" class="w-100">
+           <button name="ready" type="submit" value="<%=post[i]._id%>">I am ready</button></form>
+           <button style="background-color: #b71c1c;" name="report" value="1">Report</button>
+           </div>
+           <div class="postcardbuttonouter">
+            <p><%=post[i].readycounter %> others already helping</p>
+            <p><%=post[i].reportcounter %> others also reported</p>
+           </div>
+          </div><br>
+           <%
+          
+          
+         }
+       }}catch(e){
+        console.log(e);
+          } %> 
+    </div>
+  </div>
+    </div>
+   <script>
+      $(document).ready(function(){
+        $('#postworks').on('submit',function(event){
+          event.preventDefault();
+         
+          const postdata=$(this).serialize();
+          console.log(postdata);
+          
+  $.ajax({
+    url:'/iamin',
+    method:'post',
+    data:postdata,
+    success:function(result,status,xhr){
+     
+      if (result){
+ console.log(result);
+      }
+      else console.log("error liking");
+      
+    },
+    error:function(xhr,status,error){
+      if (status>200) {
+          console.log(error);
+      }else {
+        
+      }
+    }
+  }); event.preventDefault();
+        });
+      });
+      </script> 
+     <div class="dtabpanel p-1 ">
+       
+      <center>
+      <a class="btn rbbtn p-2 mt-2" href="/find"><span class="px-2">Find Resources</span><i class="fas fa-search"></i></a>
+    </center>
+      <br><hr>
+      <div class="container" style="display:grid; place-items:center;">
+        <div class="row w-100" style="display: grid; place-items: center;">
+          <div class="col col-12 col-md-6" style="background-color: #49527A; color: white; padding: 20px;">
+            <form action="/upload-resource" method="post" enctype="multipart/form-data" style="width: 100%;">
+              <h3 class="w-100 text-center" >Upload Resources</h3>
+         
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Resource</label>
+              <select class="form-select" name="rcat" aria-label="Default select example">
+                <option selected>Category</option>
+                <option value="oxy">Oxygen Cylinder</option>
+                <option value="medicines">Medicines</option>
+                <option value="plasma">Plasma</option>
+                <option value="con">Oxygen Concentrator</option>
+              </select>
+            </div>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Quantity</label>
+              <input type="number" class="form-control" name="quantity" style="width: 100%;">
+            </div>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Location</label>
+              <select name="rloc" class="form-select">
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Description</label>
+              <input type="text" class="form-control" name="description" style="width: 100%;">
+            </div>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Picture</label>
+              <input class="form-control"
+                  id="rpic"
+                  type="file"
+                  name="rpicu"
+                  style="width: 100%"
+                />
+            </div>
+            <div style="display: flex; flex-wrap: wrap;">
+              <button class="mt-3 rbbtn p-2" type="submit" name="">Submit</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+        
+
+
+
+     </div>
+    <div class="dtabpanel p-1 ">
+      <h1 style="display: grid; place-items: center;">Cowin Slot Check</h1>
+      <div class="container my-5" style="display:grid; place-items:center;">
+        <div class="row w-100" style="display: grid; place-items: center;">
+          <div class="col col-12 col-md-6" style="background-color: #49527A; color: white; padding: 20px;">
+            <form action="/cowin-state" method="post" style="width: 100%;">
+              <h3 class="w-100 text-center" >Find Slot</h3>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>Enter State</label>
+              <select id="cowins" name="cowins" class="form-select">
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+            <div style="display: flex; flex-wrap: wrap;"class="mt-3">
+              <label>District</label>
+              <select id="disss" class="form-select">
+               
+              </select>
+<label class="mt-2">Select a date</label>
+              <div class="input-group date" data-provide="datepicker">
+                <input id="datee" type="date" class="form-control" data-date-format='dd-mm-yyyy'>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+            </div>
+                  </form>
+
+               
+          </div>
+        </div>
+    
+    </div>
+      
+    <div class="container" style="overflow-y: auto;">
+      <table id="chipakk"class="table" style="color: white; background-color: #7986cb;">
+        <thead class="thead-dark">
+            <tr style="background-color: #49527A;">
+                <th scope="col">center id</th>
+                <th scope="col">name</th>
+               
+                <th scope="col">vaccine</th>
+                <th scope="col">fee type</th>
+                <th scope="col">time</th>
+                
+                
+             
+
+              </tr>  
+        </thead>
+        <tbody  id="mybody2">
+            
+        </tbody>
+    </table>
+    </div>
+    
+    </div>
+    <!-- AXAJ START -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+var disss=document.getElementById('disss');
+var getting="";
+
+$(document).ready(function(){
+
+
+console.log(getting);
+        var defaultv = '';
+        document.getElementById('cowins').addEventListener('change', function() {
+        defaultv = this.value;
+        fetch ("https://cdn-api.co-vin.in/api/v2/admin/location/states")
+.then(x => x.json())
+.then(y =>{ console.log(y);
+y.states.forEach(element => {
+  if(element.state_name==defaultv){
+    getting=element.state_id;
+    fetch (` https://cdn-api.co-vin.in/api/v2/admin/location/districts/${getting}`)
+.then(x => x.json())
+.then(y =>{ console.log(y);
+  var diss=[];
+  var diss2='';
+y.districts.forEach(element => {
+  diss2=` <option value="${element.district_id}">${element.district_name}</option>`
+  
+  diss.push(diss2);
+});
+disss.innerHTML=diss.join(" ");
+var defaultv2;
+document.getElementById('disss').addEventListener('change', function() {
+        defaultv2 = this.value;
+        console.log(defaultv2);
+        var defaultv3;  
+        var mydate='';
+document.getElementById('datee').addEventListener('change',function(){
+ defaultv3= this.value;
+  mydate=`${defaultv3.slice(8)}-${defaultv3.slice(5,8)}${defaultv3.slice(0, 4)}`;
+ console.log(mydate);
+ fetch (` https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${defaultv2}&date=${mydate}`)
+ .then(x => x.json())
+ .then(y =>{ console.log(y);
+
+  var zz=[]
+var xx='';
+var tbody2=document.getElementById('mybody2');
+
+y.sessions.forEach(element => {
+   xx=`
+      <tr style="background-color:black; border:1px solid #7986cb">
+ <td >${element.center_id}</td>
+ <td>${element.name}</td>
+
+<td>${element.vaccine}</td>   
+<td>${element.fee_type}</td> 
+<td>from ${element.from} to ${element.to}</td> 
+
+
+    </tr>
+    
+     `;
+     
+     zz.push(xx);
+      
+});
+tbody2.innerHTML=zz.join(" ");
+})
+});
+
+
+
+
+
+      });
+})
+   
+  }
+});
+
+});
+});
+      });
+      
+
+
+     
+   
+    </script>
+    <!-- AJAX ENd -->
+    <div class="dtabpanel p-1 ">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">    
+            <div class="row">
+              <div class="col-lg-4 col-md-7 col-5" style="display:grid;place-items: center;">
+                <div style="aspect-ratio:1;overflow:hidden;display:grid;place-items: center;">
+                  <img src="uploads/profile/<%=user.profileimg%>" class="rpimg img-fluid">
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-5">
+                <h3><%=user.name%></h3>
+                <h5><%=session%></h5>
+                <a href="/editprofile" class="btn rbbtn mt-1">Edit Profile</a><br>
+        <button type="button" class="btn rbbtn mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
+        <a href="/logout" class="btn btn-danger rbbtn6 mt-1">LogOut</a><br>
+ 
+              </div>
+            </div>
+          </div>
+        </div>
+           
+    
+        </div>
+
+      <div class="container mt-4">
+        <h3>About</h3>
+      </div>
+      <div class="container rpbkg p-3">
+        <h5>Web Developer</h5>
+        <h5>Lives In Delhi</h5>
+        <h5>Gamer</h5>
+      </div>
+
+      <div class="container mt-4">
+        <h3>Photos</h3>
+      </div>
+      
+     <div class="photoouter">
+      <div class="container rphotoinner">
+        <!--posts-->
+        
+          <%if(post2) {var i; for(i=0;i<=post2.length-1;i++){%>
+ <div class="rpupd">
+        <img src="uploads/<%=post2[i].postimg%>" style="height: 100%;">
+ </div>
+ <%}}%>
+ <!--posts end-->
+    </div>
+     </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    </tab>
+    
+<!---->
+
+
+
+
+
+
+
+
+
+            <div class="mobtabs">
+                <div class="buttoncontainer">
+                  <button  class="hello2" style="background-color: #49527A;" onclick='showpanel(0,"black")'><i style="margin-right: 15px;" class="fas fa-lg fa-home"></i></button>
+                  <button class="hello2" style="background-color: #49527A;" onclick="showpanel(1,'black')"><i style="margin-right: 15px;" class="fas fa-lg fa-gifts"></i></button>
+                  <button class="hello2" style="background-color: #49527A;" onclick="showpanel(2,'black')"><i style="margin-right: 15px;" class="fas fa-lg fa-arrow-circle-up"></i></button>
+                  <button  onlick="getLocation();" class="hello2" style="background-color: #49527A;" onclick="showpanel(3,'black')"><i style="margin-right: 15px;" class="fas fa-lg fa-user-alt"></i></button>
+                  
+            
+            
+                </div>
+            
+            </div>
+        </div>
+
+</div>
+
+
+
+
+<script src="javascript/tabcontainer.js"></script>
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-image: url('../assets/bgmain.jpg'); background-size: cover;background-position: center;background-repeat: no-repeat;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #50598865">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/upload-post" method="post" id="pupload" enctype="multipart/form-data">
+
+          <div style="display: flex; flex-wrap: wrap;">
+            <label>Description</label>
+            <input type="text" name="descc" style="width: 100%;">
+          </div>
+          <div style="display: flex; flex-wrap: wrap;">
+            <label>Add Location</label>
+            <input type="text" name="statee" style="width: 100%;">
+          </div>
+          <br><br>
+         <!-- <input type="file"
+         class="filepond" 
+      name="avatar"
+      
+         /> -->
+         <style>.filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	border-radius: 2em;
+	background-color: #edf0f4;
+	height: 1em;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+
+
+/**
+ * Page Styles
+ */</style>
+         <input type="file" 
+       
+       id="filepond"
+       name="avatar"
+       
+        />
+             
+      </div>
+        
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+     <input type="submit" name="" id="" type="submit" class="btn " style="background-color: #7986cb; border: none;color:white;">
+   
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+      $('#pupload').on('submit',function(event){
+       // event.preventDefault();
+        const uuploaddata=$(this).serialize();
+$.ajax({
+  url:'/post-upload',
+  method:'post',
+  data:uuploaddata,
+  success:function(result,status,xhr){
+    $('#msgg').text("success");
+    console.log(result);
+  },
+  error:function(xhr,status,error){
+    if (status>200) {
+
+    }else {
+      $('#msgg2').text("All Field Required");
+    }
+  }
+});
+      });
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+<%- include("main/footer"); -%>
